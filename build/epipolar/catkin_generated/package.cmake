@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "epipolar")
+set(epipolar_MAINTAINER "deanzaka <deanzaka@todo.todo>")
+set(epipolar_DEPRECATED "")
+set(epipolar_VERSION "0.0.0")
+set(epipolar_BUILD_DEPENDS "cv_bridge" "geometry_msgs" "image_transport" "pcl_conversions" "pcl_ros" "roscpp" "rospy" "sensor_msgs" "std_msgs" "visualization_msgs")
+set(epipolar_RUN_DEPENDS "cv_bridge" "geometry_msgs" "image_transport" "pcl_conversions" "pcl_ros" "roscpp" "rospy" "sensor_msgs" "std_msgs" "visualization_msgs")
+set(epipolar_BUILDTOOL_DEPENDS "catkin")

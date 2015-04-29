@@ -8,7 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   geometry_msgs
   image_transport
-  pcl_conversion
+  pcl_conversions
   pcl_ros
   roscpp
   rospy
@@ -104,25 +104,29 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a cpp library
-# add_library(epipolar
-#   src/${PROJECT_NAME}/epipolar.cpp
-# )
+add_library(epipolar
+  src/epipolar.cpp
+)
 
 ## Declare a cpp executable
-# add_executable(epipolar_node src/epipolar_node.cpp)
+add_executable(epipolar_node src/epipolar_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(epipolar_node epipolar_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(epipolar_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(epipolar_node
+  epipolar
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+)
 
 #############
 ## Install ##

@@ -1,0 +1,8 @@
+prefix=/home/deanzaka/Github/skripsi_ws/install
+
+Name: epipolar
+Description: Description of epipolar
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/deanzaka/Github/skripsi_ws/install/lib 
+Requires: 

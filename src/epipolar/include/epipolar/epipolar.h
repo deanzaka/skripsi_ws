@@ -14,13 +14,21 @@
 #include <vector>
 #include <math.h>
 
+#define PI 3.14159265
+
 namespace epipolar {
 
 	typedef void (*voidFuncPtr)(void);
 
-	class epipolar{
-	 public:
-	 private:	
+	class Epipolar{
+	  public:
+	  	Epipolar(ros::NodeHandle nh);
+    		~Epipolar();
+
+    		void run(ros::Rate loop_rate);
+
+	  private:	
+	  	ros::NodeHandle nh_;
 	};
 }
 

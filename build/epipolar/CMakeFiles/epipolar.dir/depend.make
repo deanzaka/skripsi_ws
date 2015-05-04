@@ -77,5 +77,9 @@ epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/
 epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/highgui/highgui.hpp
 epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/highgui/highgui_c.h
 epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/imgproc/imgproc.hpp
+epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/imgproc/imgproc_c.h
 epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/imgproc/types_c.h
+epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/legacy/blobtrack.hpp
+epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/video/background_segm.hpp
+epipolar/CMakeFiles/epipolar.dir/src/epipolar.cpp.o: /usr/local/include/opencv2/video/tracking.hpp
 

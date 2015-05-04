@@ -78,4 +78,8 @@ epipolar/CMakeFiles/epipolar_node.dir/src/epipolar_node.cpp.o
  /usr/local/include/opencv2/highgui/highgui.hpp
  /usr/local/include/opencv2/highgui/highgui_c.h
  /usr/local/include/opencv2/imgproc/imgproc.hpp
+ /usr/local/include/opencv2/imgproc/imgproc_c.h
  /usr/local/include/opencv2/imgproc/types_c.h
+ /usr/local/include/opencv2/legacy/blobtrack.hpp
+ /usr/local/include/opencv2/video/background_segm.hpp
+ /usr/local/include/opencv2/video/tracking.hpp

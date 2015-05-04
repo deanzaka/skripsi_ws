@@ -8,6 +8,15 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <visualization_msgs/Marker.h>
 
+#include <opencv2/video/background_segm.hpp>
+#include <opencv2/legacy/blobtrack.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc_c.h>
+
+#include <opencv2/core/core.hpp>
+#include <opencv2/video/tracking.hpp>
+#include <opencv2/video/background_segm.hpp>
+
 #include "std_msgs/String.h"
 #include <fstream>
 #include <sstream>
@@ -27,8 +36,11 @@ namespace epipolar {
 
     		void run(ros::Rate loop_rate);
 
+    		void epipolar_init();
+
 	  private:	
 	  	ros::NodeHandle nh_;
+	  	cv::Mat imgOriginal1, imgOriginal2;
 	};
 }
 

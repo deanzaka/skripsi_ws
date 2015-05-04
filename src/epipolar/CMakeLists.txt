@@ -122,6 +122,11 @@ add_executable(epipolar_node src/epipolar_node.cpp)
 # add_dependencies(epipolar_node epipolar_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
+target_link_libraries(epipolar
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+)
+
 target_link_libraries(epipolar_node
   epipolar
   ${catkin_LIBRARIES}

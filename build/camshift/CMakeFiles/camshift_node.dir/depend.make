@@ -65,4 +65,15 @@ camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /opt/ros/indigo/i
 camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /opt/ros/indigo/include/std_msgs/ColorRGBA.h
 camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /opt/ros/indigo/include/std_msgs/Header.h
 camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /opt/ros/indigo/include/visualization_msgs/Marker.h
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/core/core.hpp
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/core/core_c.h
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/core/mat.hpp
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/core/operations.hpp
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/core/types_c.h
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/core/version.hpp
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/highgui/highgui.hpp
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/highgui/highgui_c.h
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/imgproc/imgproc.hpp
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/imgproc/types_c.h
+camshift/CMakeFiles/camshift_node.dir/src/camshift_node.cpp.o: /usr/local/include/opencv2/video/tracking.hpp
 

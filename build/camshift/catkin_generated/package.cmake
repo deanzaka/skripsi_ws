@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "camshift")
+set(camshift_MAINTAINER "deanzaka <deanzaka@todo.todo>")
+set(camshift_DEPRECATED "")
+set(camshift_VERSION "0.0.0")
+set(camshift_BUILD_DEPENDS "cv_bridge" "geometry_msgs" "image_transport" "pcl_conversions" "pcl_ros" "roscpp" "rospy" "sensor_msgs" "std_msgs" "visualization_msgs")
+set(camshift_RUN_DEPENDS "cv_bridge" "geometry_msgs" "image_transport" "pcl_conversions" "pcl_ros" "roscpp" "rospy" "sensor_msgs" "std_msgs" "visualization_msgs")
+set(camshift_BUILDTOOL_DEPENDS "catkin")

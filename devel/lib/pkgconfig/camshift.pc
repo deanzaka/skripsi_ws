@@ -1,0 +1,8 @@
+prefix=/home/deanzaka/Github/skripsi_ws/devel
+
+Name: camshift
+Description: Description of camshift
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/deanzaka/Github/skripsi_ws/devel/lib 
+Requires: 

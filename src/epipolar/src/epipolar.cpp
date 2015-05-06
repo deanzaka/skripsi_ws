@@ -200,6 +200,55 @@ namespace epipolar {
 	        	imshow("Original 2", imgOriginal2); //show the original image
 	        	//==================== object detection ===========================================================================//
 
+	        	//==================== DISTANCE ESTIMATION ========================================================================//
+
+		       double dist = 200;
+
+		       // convert pixel position to angle
+		       double angleX1 = ((posX1*64) / 640) + 13;
+		       double angleX2 = 90 - (((posX2*64) / 640) + 13);
+
+		       // calculate tangensial value for angles
+		       double tan1 = tan( angleX1 * PI / 180.0 );
+		       double tan2 = tan( angleX2 * PI / 180.0 );
+
+		       // calculate object position
+		       int posX, posY;
+		       posX = (tan1 * dist) / (tan1 + tan2);
+		       posY = (tan2 * posX);
+
+		       cout << "Object position: \t";
+		       cout << posX << "\t";
+		       cout << posY << "\t";
+
+		       //==================== distance estimation ========================================================================//
+
+		       //==================== HEIGHT ESTIMATION ========================================================================//
+		        
+		       double stand = 103.0;
+		       double posR, angleZ, tanZ;
+		       int posZ;
+
+		       posR = sqrt(posX*posX + posY*posY);
+
+		       if(posY2 > 240) {
+		       	angleZ = ((posY2*48) / 480) - 24;
+		       	tanZ = tan(angleZ * PI / 180.0);
+
+		        	posZ = posR * tanZ;
+		        	posZ = stand - posZ;
+		       }
+		       else if (posY2 < 240){
+		        	angleZ = 24 - ((posY2*48)/480);
+		        	tanZ = tan(angleZ * PI / 180.0);
+
+		        	posZ = posR * tanZ;
+		        	posZ = stand + posZ;
+		       }
+		       else posZ = stand;
+		       cout << posZ << "\n\n";
+		       //==================== height estimation ========================================================================//
+
       			imshow("Camera 1", imgOriginal1);
 			imshow("Camera 2", imgOriginal2);
 

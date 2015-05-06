@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/deanzaka/Github/skripsi_ws/install/lib;/home/deanzaka/Github/truinect/devel/lib;/home/deanzaka/Github/trui-bot-prj/controller/devel/lib;/opt/ros/indigo/lib)
+    foreach(path /home/deanzaka/Github/skripsi_ws/install/lib;/home/deanzaka/Github/skripsi_ws/devel/lib;/home/deanzaka/Github/truinect/devel/lib;/home/deanzaka/Github/trui-bot-prj/controller/devel/lib;/opt/ros/indigo/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

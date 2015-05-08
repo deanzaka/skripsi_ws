@@ -15,7 +15,7 @@
 using namespace cv;
 using namespace std;
 
-Mat image1;
+Mat image1, image2;
 
 bool backprojMode = false;
 bool selectObject = false;
@@ -82,15 +82,21 @@ int main (int argc, char** argv)
     	VideoCapture cap1(1); //capture the video from webcam
 	VideoCapture cap2(2); //capture the video from webcam
 
-	namedWindow( "Histogram", 0 );
+	namedWindow( "Histogram 1", 0 );
     	namedWindow( "CamShift 1", 0 );
     	setMouseCallback( "CamShift 1", onMouse, 0 );
+    	
+    	namedWindow( "Histogram 2", 0 );
+    	namedWindow( "CamShift 2", 0 );
+    	setMouseCallback( "CamShift 2", onMouse, 0 );
+
     	namedWindow("CamShift Panel", 0);
     	createTrackbar( "Vmin", "CamShift Panel", &vmin, 256, 0 );
     	createTrackbar( "Vmax", "CamShift Panel", &vmax, 256, 0 );
     	createTrackbar( "Smin", "CamShift Panel", &smin, 256, 0 );
 
     	Mat frame1, hsv1, hue1, mask1, hist1, histimg1 = Mat::zeros(200, 320, CV_8UC3), backproj1;
+    	Mat frame2, hsv2, hue2, mask2, hist2, histimg2 = Mat::zeros(200, 320, CV_8UC3), backproj2;
     	bool paused = false;
 
     	while(nh.ok()) {
@@ -98,15 +104,18 @@ int main (int argc, char** argv)
         	if( !paused )
         	{
             		cap1 >> frame1;
-            		if( frame1.empty() )
+            		cap2 >> frame2;
+            		if( frame1.empty() || frame2.empty())
                 		break;
         	}
 
         	frame1.copyTo(image1);
+        	frame2.copyTo(image2);
 
         	if( !paused )
         	{
             		cvtColor(image1,hsv1, COLOR_BGR2HSV);
+            		cvtColor(image2,hsv2, COLOR_BGR2HSV);
 
             		if( trackObject )
             		{
@@ -170,7 +179,10 @@ int main (int argc, char** argv)
         	}
 
         	imshow( "CamShift 1", image1 );
-        	imshow( "Histogram", histimg1 );
+        	imshow( "Histogram 1", histimg1 );
+
+        	imshow( "CamShift 2", image2 );
+        	imshow( "Histogram 2", histimg2 );
 
         	char c = (char)waitKey(10);
         	if( c == 27 )
@@ -186,8 +198,8 @@ int main (int argc, char** argv)
             				break;
         		case 'h':
             				showHist = !showHist;
-            				if( !showHist ) destroyWindow( "Histogram" );
-            				else namedWindow( "Histogram", 1 );
+            				if( !showHist ) destroyWindow( "Histogram 1" );
+            				else namedWindow( "Histogram 1", 1 );
             				break;
         		case 'p':
             				paused = !paused;

@@ -15,7 +15,7 @@
 using namespace cv;
 using namespace std;
 
-Mat image;
+Mat image1;
 
 bool backprojMode = false;
 bool selectObject = false;
@@ -48,7 +48,7 @@ static void onMouse( int event, int x, int y, int, void* )
         	selection.width = std::abs(x - origin.x);
         	selection.height = std::abs(y - origin.y);
 
-        	selection &= Rect(0, 0, image.cols, image.rows);
+        	selection &= Rect(0, 0, image1.cols, image1.rows);
     	}
 
     	switch( event )
@@ -83,51 +83,52 @@ int main (int argc, char** argv)
 	VideoCapture cap2(2); //capture the video from webcam
 
 	namedWindow( "Histogram", 0 );
-    	namedWindow( "CamShift Demo", 0 );
-    	setMouseCallback( "CamShift Demo", onMouse, 0 );
-    	createTrackbar( "Vmin", "CamShift Demo", &vmin, 256, 0 );
-    	createTrackbar( "Vmax", "CamShift Demo", &vmax, 256, 0 );
-    	createTrackbar( "Smin", "CamShift Demo", &smin, 256, 0 );
+    	namedWindow( "CamShift 1", 0 );
+    	setMouseCallback( "CamShift 1", onMouse, 0 );
+    	namedWindow("CamShift Panel", 0);
+    	createTrackbar( "Vmin", "CamShift Panel", &vmin, 256, 0 );
+    	createTrackbar( "Vmax", "CamShift Panel", &vmax, 256, 0 );
+    	createTrackbar( "Smin", "CamShift Panel", &smin, 256, 0 );
 
-    	Mat frame, hsv, hue, mask, hist, histimg = Mat::zeros(200, 320, CV_8UC3), backproj;
+    	Mat frame1, hsv1, hue1, mask1, hist1, histimg1 = Mat::zeros(200, 320, CV_8UC3), backproj1;
     	bool paused = false;
 
     	while(nh.ok()) {
 
         	if( !paused )
         	{
-            		cap1 >> frame;
-            		if( frame.empty() )
+            		cap1 >> frame1;
+            		if( frame1.empty() )
                 		break;
         	}
 
-        	frame.copyTo(image);
+        	frame1.copyTo(image1);
 
         	if( !paused )
         	{
-            		cvtColor(image, hsv, COLOR_BGR2HSV);
+            		cvtColor(image1,hsv1, COLOR_BGR2HSV);
 
             		if( trackObject )
             		{
                 		int _vmin = vmin, _vmax = vmax;
 
-                		inRange(hsv, Scalar(0, smin, MIN(_vmin,_vmax)),
-                        	Scalar(180, 256, MAX(_vmin, _vmax)), mask);
+                		inRange(hsv1, Scalar(0, smin, MIN(_vmin,_vmax)),
+                        	Scalar(180, 256, MAX(_vmin, _vmax)), mask1);
                 		int ch[] = {0, 0};
-                		hue.create(hsv.size(), hsv.depth());
-                		mixChannels(&hsv, 1, &hue, 1, ch, 1);
+                		hue1.create(hsv1.size(), hsv1.depth());
+                		mixChannels(&hsv1, 1, &hue1, 1, ch, 1);
 
                 		if( trackObject < 0 )
                 		{
-                    		Mat roi(hue, selection), maskroi(mask, selection);
-		                    calcHist(&roi, 1, 0, maskroi, hist, 1, &hsize, &phranges);
-		                    normalize(hist, hist, 0, 255, CV_MINMAX);
+                    		Mat roi(hue1, selection), maskroi(mask1, selection);
+		                    calcHist(&roi, 1, 0, maskroi, hist1, 1, &hsize, &phranges);
+		                    normalize(hist1, hist1, 0, 255, CV_MINMAX);
 
 		                    trackWindow = selection;
 		                    trackObject = 1;
 
-		                    histimg = Scalar::all(0);
-		                    int binW = histimg.cols / hsize;
+		                    histimg1 = Scalar::all(0);
+		                    int binW = histimg1.cols / hsize;
 		                    Mat buf(1, hsize, CV_8UC3);
                     		for( int i = 0; i < hsize; i++ )
                         				buf.at<Vec3b>(i) = Vec3b(saturate_cast<uchar>(i*180./hsize), 255, 255);
@@ -135,28 +136,28 @@ int main (int argc, char** argv)
 
 		                    for( int i = 0; i < hsize; i++ )
 		                    {
-		                        int val = saturate_cast<int>(hist.at<float>(i)*histimg.rows/255);
-		                        rectangle( histimg, Point(i*binW,histimg.rows),
-		                                   Point((i+1)*binW,histimg.rows - val),
+		                        int val = saturate_cast<int>(hist1.at<float>(i)*histimg1.rows/255);
+		                        rectangle( histimg1, Point(i*binW,histimg1.rows),
+		                                   Point((i+1)*binW,histimg1.rows - val),
 		                                   Scalar(buf.at<Vec3b>(i)), -1, 8 );
 		                    }
                 		}
 
-                		calcBackProject(&hue, 1, 0, hist, backproj, &phranges);
-                		backproj &= mask;
-                		RotatedRect trackBox = CamShift(backproj, trackWindow,
+                		calcBackProject(&hue1, 1, 0, hist1, backproj1, &phranges);
+                		backproj1 &= mask1;
+                		RotatedRect trackBox = CamShift(backproj1, trackWindow,
                                     	TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 		if( trackWindow.area() <= 1 )
                 		{
-		                    int cols = backproj.cols, rows = backproj.rows, r = (MIN(cols, rows) + 5)/6;
+		                    int cols = backproj1.cols, rows = backproj1.rows, r = (MIN(cols, rows) + 5)/6;
 		                    trackWindow = Rect(trackWindow.x - r, trackWindow.y - r,
                                        	trackWindow.x + r, trackWindow.y + r) &
                                  				Rect(0, 0, cols, rows);
                 		}
 
                 		if( backprojMode )
-                    			cvtColor( backproj, image, COLOR_GRAY2BGR );
-                		ellipse( image, trackBox, Scalar(0,0,255), 3, CV_AA );
+                    			cvtColor( backproj1, image1, COLOR_GRAY2BGR );
+                		ellipse( image1, trackBox, Scalar(0,0,255), 3, CV_AA );
             		}
         	}
         	else if( trackObject < 0 )
@@ -164,12 +165,12 @@ int main (int argc, char** argv)
 
         	if( selectObject && selection.width > 0 && selection.height > 0 )
         	{
-            		Mat roi(image, selection);
+            		Mat roi(image1, selection);
             		bitwise_not(roi, roi);
         	}
 
-        	imshow( "CamShift Demo", image );
-        	imshow( "Histogram", histimg );
+        	imshow( "CamShift 1", image1 );
+        	imshow( "Histogram", histimg1 );
 
         	char c = (char)waitKey(10);
         	if( c == 27 )
@@ -181,7 +182,7 @@ int main (int argc, char** argv)
             				break;
         		case 'c':
             				trackObject = 0;
-            				histimg = Scalar::all(0);
+            				histimg1 = Scalar::all(0);
             				break;
         		case 'h':
             				showHist = !showHist;

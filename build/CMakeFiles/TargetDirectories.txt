@@ -9,6 +9,7 @@
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/bond_generate_messages_py.dir
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/camshift_node.dir
 /home/deanzaka/Github/skripsi_ws/build/CMakeFiles/clean_test_results.dir
+/home/deanzaka/Github/skripsi_ws/build/CMakeFiles/download_extra_data.dir
 /home/deanzaka/Github/skripsi_ws/build/CMakeFiles/doxygen.dir
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/dynamic_reconfigure_gencfg.dir
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir

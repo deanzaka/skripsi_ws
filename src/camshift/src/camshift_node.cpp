@@ -201,6 +201,7 @@ int main (int argc, char** argv)
 
     while(nh.ok()) 
     {
+        ros::Time start = ros::Time::now();
 
         // First predict, to update the internal statePre variable
         Mat prediction1 = KF1.predict();
@@ -451,7 +452,9 @@ int main (int argc, char** argv)
         imshow( "Histogram 1", histimg1 );
         imshow( "Histogram 2", histimg2 );
 
+        
         char c = (char)waitKey(1);
+        
         if( c == 27 )
                 break;
         switch(c)
@@ -482,6 +485,13 @@ int main (int argc, char** argv)
             default:
             ;
         }
+
+        float delay = ros::Time::now().toSec() - start.toSec();
+        while(delay < 0.040) {
+            delay = ros::Time::now().toSec() - start.toSec();
+        }
+        
+        cout << "\n\n Delay = \t" << delay << "\n\n";
 
         ros::spinOnce();
     }

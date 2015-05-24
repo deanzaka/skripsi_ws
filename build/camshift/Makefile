@@ -346,48 +346,6 @@ dynamic_reconfigure_generate_messages_py/fast:
 .PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 # Convenience name for target.
-camshift/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : camshift/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_cpp: camshift/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/rule
-.PHONY : geometry_msgs_generate_messages_cpp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_cpp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build.make camshift/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/build
-.PHONY : geometry_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : camshift/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_lisp: camshift/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/rule
-.PHONY : geometry_msgs_generate_messages_lisp
-
-# fast build rule for target.
-geometry_msgs_generate_messages_lisp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build.make camshift/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/build
-.PHONY : geometry_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : camshift/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-geometry_msgs_generate_messages_py: camshift/CMakeFiles/geometry_msgs_generate_messages_py.dir/rule
-.PHONY : geometry_msgs_generate_messages_py
-
-# fast build rule for target.
-geometry_msgs_generate_messages_py/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/geometry_msgs_generate_messages_py.dir/build.make camshift/CMakeFiles/geometry_msgs_generate_messages_py.dir/build
-.PHONY : geometry_msgs_generate_messages_py/fast
-
-# Convenience name for target.
 camshift/CMakeFiles/nodelet_generate_messages_cpp.dir/rule:
 	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/nodelet_generate_messages_cpp.dir/rule
 .PHONY : camshift/CMakeFiles/nodelet_generate_messages_cpp.dir/rule
@@ -484,174 +442,6 @@ pcl_ros_gencfg: camshift/CMakeFiles/pcl_ros_gencfg.dir/rule
 pcl_ros_gencfg/fast:
 	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/pcl_ros_gencfg.dir/build.make camshift/CMakeFiles/pcl_ros_gencfg.dir/build
 .PHONY : pcl_ros_gencfg/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : camshift/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_cpp: camshift/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : roscpp_generate_messages_cpp
-
-# fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make camshift/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : camshift/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_lisp: camshift/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : roscpp_generate_messages_lisp
-
-# fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make camshift/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/roscpp_generate_messages_py.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/roscpp_generate_messages_py.dir/rule
-.PHONY : camshift/CMakeFiles/roscpp_generate_messages_py.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_py: camshift/CMakeFiles/roscpp_generate_messages_py.dir/rule
-.PHONY : roscpp_generate_messages_py
-
-# fast build rule for target.
-roscpp_generate_messages_py/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/roscpp_generate_messages_py.dir/build.make camshift/CMakeFiles/roscpp_generate_messages_py.dir/build
-.PHONY : roscpp_generate_messages_py/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : camshift/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_cpp: camshift/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : rosgraph_msgs_generate_messages_cpp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make camshift/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-.PHONY : camshift/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_lisp: camshift/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make camshift/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : camshift/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_py: camshift/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make camshift/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : camshift/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_cpp: camshift/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : sensor_msgs_generate_messages_cpp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_cpp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make camshift/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-.PHONY : sensor_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : camshift/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_lisp: camshift/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : sensor_msgs_generate_messages_lisp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make camshift/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : camshift/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_py: camshift/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : sensor_msgs_generate_messages_py
-
-# fast build rule for target.
-sensor_msgs_generate_messages_py/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make camshift/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-.PHONY : sensor_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-.PHONY : camshift/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_cpp: camshift/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
-.PHONY : std_msgs_generate_messages_cpp
-
-# fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make camshift/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-.PHONY : std_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-.PHONY : camshift/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_lisp: camshift/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
-.PHONY : std_msgs_generate_messages_lisp
-
-# fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make camshift/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-.PHONY : camshift/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-std_msgs_generate_messages_py: camshift/CMakeFiles/std_msgs_generate_messages_py.dir/rule
-.PHONY : std_msgs_generate_messages_py
-
-# fast build rule for target.
-std_msgs_generate_messages_py/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/std_msgs_generate_messages_py.dir/build.make camshift/CMakeFiles/std_msgs_generate_messages_py.dir/build
-.PHONY : std_msgs_generate_messages_py/fast
 
 # Convenience name for target.
 camshift/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/rule:
@@ -779,48 +569,6 @@ topic_tools_generate_messages_py/fast:
 	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/topic_tools_generate_messages_py.dir/build.make camshift/CMakeFiles/topic_tools_generate_messages_py.dir/build
 .PHONY : topic_tools_generate_messages_py/fast
 
-# Convenience name for target.
-camshift/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
-.PHONY : camshift/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_cpp: camshift/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/rule
-.PHONY : visualization_msgs_generate_messages_cpp
-
-# fast build rule for target.
-visualization_msgs_generate_messages_cpp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build.make camshift/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build
-.PHONY : visualization_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-.PHONY : camshift/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_lisp: camshift/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/rule
-.PHONY : visualization_msgs_generate_messages_lisp
-
-# fast build rule for target.
-visualization_msgs_generate_messages_lisp/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build.make camshift/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build
-.PHONY : visualization_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-camshift/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f CMakeFiles/Makefile2 camshift/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-.PHONY : camshift/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-visualization_msgs_generate_messages_py: camshift/CMakeFiles/visualization_msgs_generate_messages_py.dir/rule
-.PHONY : visualization_msgs_generate_messages_py
-
-# fast build rule for target.
-visualization_msgs_generate_messages_py/fast:
-	cd /home/deanzaka/Github/skripsi_ws/build && $(MAKE) -f camshift/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make camshift/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
-.PHONY : visualization_msgs_generate_messages_py/fast
-
 src/camshift_node.o: src/camshift_node.cpp.o
 .PHONY : src/camshift_node.o
 
@@ -866,9 +614,6 @@ help:
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... edit_cache"
-	@echo "... geometry_msgs_generate_messages_cpp"
-	@echo "... geometry_msgs_generate_messages_lisp"
-	@echo "... geometry_msgs_generate_messages_py"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
@@ -881,18 +626,6 @@ help:
 	@echo "... pcl_msgs_generate_messages_py"
 	@echo "... pcl_ros_gencfg"
 	@echo "... rebuild_cache"
-	@echo "... roscpp_generate_messages_cpp"
-	@echo "... roscpp_generate_messages_lisp"
-	@echo "... roscpp_generate_messages_py"
-	@echo "... rosgraph_msgs_generate_messages_cpp"
-	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_py"
-	@echo "... sensor_msgs_generate_messages_cpp"
-	@echo "... sensor_msgs_generate_messages_lisp"
-	@echo "... sensor_msgs_generate_messages_py"
-	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... std_msgs_generate_messages_lisp"
-	@echo "... std_msgs_generate_messages_py"
 	@echo "... test"
 	@echo "... tf2_msgs_generate_messages_cpp"
 	@echo "... tf2_msgs_generate_messages_lisp"
@@ -903,9 +636,6 @@ help:
 	@echo "... topic_tools_generate_messages_cpp"
 	@echo "... topic_tools_generate_messages_lisp"
 	@echo "... topic_tools_generate_messages_py"
-	@echo "... visualization_msgs_generate_messages_cpp"
-	@echo "... visualization_msgs_generate_messages_lisp"
-	@echo "... visualization_msgs_generate_messages_py"
 	@echo "... src/camshift_node.o"
 	@echo "... src/camshift_node.i"
 	@echo "... src/camshift_node.s"

@@ -18,7 +18,6 @@
 using namespace cv;
 using namespace std;
 
-
 Mat image1, image2, imageOriginal1, imageOriginal2;
 
 bool showHist = true;
@@ -228,33 +227,33 @@ int main (int argc, char** argv)
         frame1.copyTo(imageOriginal1);
         frame2.copyTo(imageOriginal2);
 
-        pMOG1->operator()(image1, fgMaskMOG1);
-        fgMaskMOG1.copyTo(channel1[0]);
-        channel1[1] = Mat::zeros(480, 640, CV_8UC1 );
-        channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
-        merge(channel1, 3, image1);
+        // pMOG1->operator()(image1, fgMaskMOG1);
+        // fgMaskMOG1.copyTo(channel1[0]);
+        // channel1[1] = Mat::zeros(480, 640, CV_8UC1 );
+        // channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
+        // merge(channel1, 3, image1);
 
-        //morphological opening (removes small objects from the foreground)
-        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
-        dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // //morphological opening (removes small objects from the foreground)
+        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
-        //morphological closing (removes small holes from the foreground)
-        dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
-        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // //morphological closing (removes small holes from the foreground)
+        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
-        pMOG2->operator()(image2, fgMaskMOG2);
-        fgMaskMOG2.copyTo(channel2[2]);
-        channel2[1] = Mat::zeros(480, 640, CV_8UC1 );
-        channel2[0] = Mat::zeros(480, 640, CV_8UC1 );
-        merge(channel2, 3, image2);
+        // pMOG2->operator()(image2, fgMaskMOG2);
+        // fgMaskMOG2.copyTo(channel2[2]);
+        // channel2[1] = Mat::zeros(480, 640, CV_8UC1 );
+        // channel2[0] = Mat::zeros(480, 640, CV_8UC1 );
+        // merge(channel2, 3, image2);
 
-        //morphological opening (removes small objects from the foreground)
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
-        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // //morphological opening (removes small objects from the foreground)
+        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
-        //morphological closing (removes small holes from the foreground)
-        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // //morphological closing (removes small holes from the foreground)
+        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         if( !paused )
         {
@@ -266,7 +265,7 @@ int main (int argc, char** argv)
                 int _vmin1 = vmin1, _vmax1 = vmax1;
 
                 inRange(hsv1, Scalar(0, smin1, MIN(_vmin1,_vmax1)),
-                Scalar(180, 256, MAX(_vmin1, _vmax1)), mask1);
+                        Scalar(180, 256, MAX(_vmin1, _vmax1)), mask1);
                 int ch1[] = {0, 0};
                 hue1.create(hsv1.size(), hsv1.depth());
                 mixChannels(&hsv1, 1, &hue1, 1, ch1, 1);
@@ -284,7 +283,7 @@ int main (int argc, char** argv)
                     int binW = histimg1.cols / hsize;
                     Mat buf1(1, hsize, CV_8UC3);
                     for( int i = 0; i < hsize; i++ )
-                    buf1.at<Vec3b>(i) = Vec3b(saturate_cast<uchar>(i*180./hsize), 255, 255);
+                            buf1.at<Vec3b>(i) = Vec3b(saturate_cast<uchar>(i*180./hsize), 255, 255);
                     cvtColor(buf1, buf1, CV_HSV2BGR);
 
                     for( int i = 0; i < hsize; i++ )
@@ -299,7 +298,7 @@ int main (int argc, char** argv)
                 calcBackProject(&hue1, 1, 0, hist1, backproj1, &phranges);
                 backproj1 &= mask1;
                 int flagShift1 = meanShift(backproj1, trackWindow1,
-                    TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
+                        TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 RotatedRect trackBox1;
                 if(flagShift1 != 0) {
                     trackBox1 = CamShift(backproj1, trackWindow1,
@@ -382,7 +381,7 @@ int main (int argc, char** argv)
 
                 calcBackProject(&hue2, 1, 0, hist2, backproj2, &phranges);
                 backproj2 &= mask2;
-                int flagShift2 = meanShift(backproj1, trackWindow1,
+                int flagShift2 = meanShift(backproj2, trackWindow2,
                     TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 RotatedRect trackBox2;
                 if(flagShift2 != 0) {
@@ -452,7 +451,7 @@ int main (int argc, char** argv)
         imshow( "Histogram 1", histimg1 );
         imshow( "Histogram 2", histimg2 );
 
-        char c = (char)waitKey(10);
+        char c = (char)waitKey(1);
         if( c == 27 )
                 break;
         switch(c)
@@ -485,10 +484,5 @@ int main (int argc, char** argv)
         }
 
         ros::spinOnce();
-        if (waitKey(1) == 27) //wait for 'esc' key press for 1ms. If 'esc' key is pressed, break loop
-        {
-            cout << "\nESC: Closing Application\n";
-            break;
-        }
     }
 }

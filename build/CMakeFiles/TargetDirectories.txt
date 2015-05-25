@@ -26,6 +26,7 @@
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/nodelet_generate_messages_cpp.dir
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/nodelet_generate_messages_lisp.dir
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/nodelet_generate_messages_py.dir
+/home/deanzaka/Github/skripsi_ws/build/offline/CMakeFiles/offline_node.dir
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/pcl_msgs_generate_messages_cpp.dir
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/pcl_msgs_generate_messages_lisp.dir
 /home/deanzaka/Github/skripsi_ws/build/camshift/CMakeFiles/pcl_msgs_generate_messages_py.dir

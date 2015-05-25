@@ -14,7 +14,6 @@
 #include <ctype.h>
 
 #define _USE_MATH_DEFINES
-#define PI 3.14159265
 
 using namespace cv;
 using namespace std;
@@ -151,30 +150,37 @@ int main (int argc, char** argv)
     setIdentity(KF2.measurementNoiseCov, Scalar::all(1e-1));
     setIdentity(KF2.errorCovPost, Scalar::all(.1));
 
-    VideoCapture cap1;
+    VideoCapture inputVideo1("/home/deanzaka/datatemp/video1.avi");              // Open input
+    if (!inputVideo1.isOpened())
+    {
+        cout  << "Could not open the input video 1" << endl;
+        return -1;
+    }
+
+    VideoCapture inputVideo2("/home/deanzaka/datatemp/video2.avi");              // Open input
+    if (!inputVideo2.isOpened())
+    {
+        cout  << "Could not open the input video 2" << endl;
+        return -1;
+    }
+
+    int ex1 = static_cast<int>(inputVideo1.get(CV_CAP_PROP_FOURCC));     // Get Codec Type- Int form
+    int ex2 = static_cast<int>(inputVideo2.get(CV_CAP_PROP_FOURCC));     // Get Codec Type- Int form
+
+    // Transform from int to char via Bitwise operators
+    char EXT1[] = {(char)(ex1 & 0XFF) , (char)((ex1 & 0XFF00) >> 8),(char)((ex1 & 0XFF0000) >> 16),(char)((ex1 & 0XFF000000) >> 24), 0};
+    char EXT2[] = {(char)(ex2 & 0XFF) , (char)((ex2 & 0XFF00) >> 8),(char)((ex2 & 0XFF0000) >> 16),(char)((ex2 & 0XFF000000) >> 24), 0};
+
+    Size S1 = Size((int) inputVideo1.get(CV_CAP_PROP_FRAME_WIDTH),    // Acquire input size
+                  (int) inputVideo1.get(CV_CAP_PROP_FRAME_HEIGHT));
+    Size S2 = Size((int) inputVideo2.get(CV_CAP_PROP_FRAME_WIDTH),    // Acquire input size
+                  (int) inputVideo2.get(CV_CAP_PROP_FRAME_HEIGHT));
+
     Rect trackWindow1;
-    VideoCapture cap2;
     Rect trackWindow2;
     int hsize = 16;
     float hranges[] = {0,180};
     const float* phranges = hranges;
-
-    int posZ;
-    double posX1, posX2, posY1, posY2;
-
-    cap1.open(1);
-    cap2.open(2);
-
-
-    if( !cap1.isOpened() )
-    {
-        cout << "***Could not initialize capturing camera 1...***\n";
-    }
-
-    if( !cap2.isOpened() )
-    {
-        cout << "***Could not initialize capturing camera 2...***\n";
-    }
 
     namedWindow( "Histogram 1", 0 );
     namedWindow( "Histogram 2", 0 );
@@ -216,13 +222,13 @@ int main (int argc, char** argv)
 
         if( !paused )
         {
-            cap1 >> frame1;
+            inputVideo1 >> frame1;
             if( frame1.empty() )
                 break;
         }
         if( !paused )
         {
-            cap2 >> frame2;
+            inputVideo2 >> frame2;
             if( frame2.empty() )
                 break;
         }
@@ -232,19 +238,19 @@ int main (int argc, char** argv)
         frame1.copyTo(imageOriginal1);
         frame2.copyTo(imageOriginal2);
 
-        // pMOG1->operator()(image1, fgMaskMOG1);
-        // fgMaskMOG1.copyTo(channel1[0]);
-        // channel1[1] = Mat::zeros(480, 640, CV_8UC1 );
-        // channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
-        // merge(channel1, 3, image1);
+        pMOG1->operator()(image1, fgMaskMOG1);
+        fgMaskMOG1.copyTo(channel1[0]);
+        channel1[1] = Mat::zeros(480, 640, CV_8UC1 );
+        channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
+        merge(channel1, 3, image1);
 
         // //morphological opening (removes small objects from the foreground)
-        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
-        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
+        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
 
         // //morphological closing (removes small holes from the foreground)
-        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
-        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
+        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
 
         pMOG2->operator()(image2, fgMaskMOG2);
         fgMaskMOG2.copyTo(channel2[2]);
@@ -252,13 +258,13 @@ int main (int argc, char** argv)
         channel2[0] = Mat::zeros(480, 640, CV_8UC1 );
         merge(channel2, 3, image2);
 
-        //morphological opening (removes small objects from the foreground)
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
-        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+        // //morphological opening (removes small objects from the foreground)
+        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
+        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
 
-        //morphological closing (removes small holes from the foreground)
-        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+        // //morphological closing (removes small holes from the foreground)
+        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
+        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
 
         if( !paused )
         {
@@ -309,10 +315,15 @@ int main (int argc, char** argv)
                     trackBox1 = CamShift(backproj1, trackWindow1,
                         TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 }
-                else{
-                    Rect preWindow1(predictPt1.x, predictPt1.y, 50, 50); 
+                else if(0 < predictPt1.y < 480){
+                    Rect preWindow1(predictPt1.x, predictPt1.y, 10, 10); 
                     trackBox1 = CamShift(backproj1, preWindow1,
-                        TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
+                                        TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
+                }
+                else {
+                    Rect preWindow1(xCam1, yCam1, 50, 50); 
+                    trackBox1 = CamShift(backproj1, preWindow1,
+                                        TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 }
                 if( trackWindow1.area() <= 1 )
                 {
@@ -332,8 +343,6 @@ int main (int argc, char** argv)
                 if(trackBox1.center.x != 0 || trackBox1.center.y != 0) {
                     xCam1 = trackBox1.center.x;
                     yCam1 = trackBox1.center.y;
-                    posX1 = trackBox1.center.x;
-                    posY1 = trackBox1.center.y;
 
                     measurement1(0) = xCam1;
                     measurement1(1) = yCam1; 
@@ -395,11 +404,17 @@ int main (int argc, char** argv)
                     trackBox2 = CamShift(backproj2, trackWindow2,
                         TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 }
-                else{
-                    Rect preWindow2(predictPt2.x, predictPt2.y, 50, 50); 
+                else if (0 < predictPt2.y < 480) {
+                    Rect preWindow2(predictPt2.x, predictPt2.y, 10, 10); 
                     trackBox2 = CamShift(backproj2, preWindow2,
-                        TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
+                                        TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 }
+                else {
+                    Rect preWindow2(xCam2, yCam2, 50, 50); 
+                    trackBox2 = CamShift(backproj2, preWindow2,
+                                        TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
+                }
+                
                 if( trackWindow2.area() <= 1 )
                 {
                     int cols = backproj2.cols, rows = backproj2.rows, r = (MIN(cols, rows) + 5)/6;
@@ -418,8 +433,6 @@ int main (int argc, char** argv)
                 if(trackBox2.center.x != 0 || trackBox2.center.y != 0) {
                     xCam2 = trackBox2.center.x;
                     yCam2 = trackBox2.center.y;
-                    posX2 = trackBox2.center.x;
-                    posY2 = trackBox2.center.y;
 
                     measurement2(0) = xCam2;
                     measurement2(1) = yCam2; 
@@ -440,59 +453,6 @@ int main (int argc, char** argv)
         }
         //  else if( trackObject1 < 0 && trackObject2 < 0 )
         //  paused = false;
-
-         //==================== DISTANCE ESTIMATION ========================================================================//
-
-        if( trackObject1 > 0 && trackObject2 > 0) {
-           
-            double dist = 600;
-
-            // convert pixel position to angle
-            double angleX1 = 90 - ((posX1*64) / 640);
-            double angleX2 = (((posX2*64) / 640) + 26);
-
-            // calculate tangensial value for angles
-            double tan1 = tan( angleX1 * PI / 180.0 );
-            double tan2 = tan( angleX2 * PI / 180.0 );
-
-            // calculate object position
-            int posX, posY;
-            posX = (tan1 * dist) / (tan1 + tan2);
-            posY = (tan2 * posX);
-
-            cout << "\nObject position: \t";
-            
-            cout << posX << "\t";
-            cout << posY << "\t";
-
-        //==================== distance estimation ========================================================================//
-
-        //==================== HEIGHT ESTIMATION ========================================================================//
-            
-            double stand = 120.0;
-            double posR, angleZ, tanZ;
-
-            posR = sqrt(posX*posX + posY*posY);
-
-            if(posY2 > 240) {
-                angleZ = ((posY2*48) / 480) - 24;
-                tanZ = tan(angleZ * PI / 180.0);
-
-                posZ = posR * tanZ;
-                posZ = stand - posZ;
-            }
-            else if (posY2 < 240){
-                angleZ = 24 - ((posY2*48)/480);
-                tanZ = tan(angleZ * PI / 180.0);
-
-                posZ = posR * tanZ;
-                posZ = stand + posZ;
-            }
-            else posZ = stand;
-            cout << posZ << "\n\n";
-        }
-        //==================== height estimation ========================================================================//
-
 
         if( selectObject1 && selection1.width > 0 && selection1.height > 0 )
         {

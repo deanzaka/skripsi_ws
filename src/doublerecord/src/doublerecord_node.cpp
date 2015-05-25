@@ -46,10 +46,12 @@ int main (int argc, char** argv)
 		if( c == 27 ) break;
 
 		float delay = ros::Time::now().toSec() - start.toSec();
-        	while(delay < 0.040) {
-            		delay = ros::Time::now().toSec() - start.toSec();
-        	}
+		while(delay < 0.040) {
+			delay = ros::Time::now().toSec() - start.toSec();
+		}
 
+		cout << "\n\n Delay = \t" << delay << "\n\n";
+        	
         	ros::spinOnce();
 	}
 }

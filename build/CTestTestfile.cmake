@@ -6,5 +6,6 @@
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
 SUBDIRS(doublerecord)
+SUBDIRS(offline)
 SUBDIRS(camshift)
 SUBDIRS(epipolar)

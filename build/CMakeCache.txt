@@ -383,6 +383,12 @@ message_runtime_DIR:PATH=/opt/ros/indigo/share/message_runtime/cmake
 //The directory containing a CMake configuration file for nodelet.
 nodelet_DIR:PATH=/opt/ros/indigo/share/nodelet/cmake
 
+//Value Computed by CMake
+offline_BINARY_DIR:STATIC=/home/deanzaka/Github/skripsi_ws/build/offline
+
+//Value Computed by CMake
+offline_SOURCE_DIR:STATIC=/home/deanzaka/Github/skripsi_ws/src/offline
+
 //The directory containing a CMake configuration file for pcl_conversion.
 pcl_conversion_DIR:PATH=pcl_conversion_DIR-NOTFOUND
 
@@ -569,7 +575,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=5
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

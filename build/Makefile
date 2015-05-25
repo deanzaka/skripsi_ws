@@ -488,6 +488,19 @@ visualization_msgs_generate_messages_py/fast:
 .PHONY : visualization_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named offline_node
+
+# Build rule for target.
+offline_node: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 offline_node
+.PHONY : offline_node
+
+# fast build rule for target.
+offline_node/fast:
+	$(MAKE) -f offline/CMakeFiles/offline_node.dir/build.make offline/CMakeFiles/offline_node.dir/build
+.PHONY : offline_node/fast
+
+#=============================================================================
 # Target rules for targets named actionlib_generate_messages_cpp
 
 # Build rule for target.
@@ -942,6 +955,7 @@ help:
 	@echo "... visualization_msgs_generate_messages_cpp"
 	@echo "... visualization_msgs_generate_messages_lisp"
 	@echo "... visualization_msgs_generate_messages_py"
+	@echo "... offline_node"
 	@echo "... actionlib_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... actionlib_generate_messages_py"

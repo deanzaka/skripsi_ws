@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "doubleRecord")
+set(doubleRecord_MAINTAINER "deanzaka <deanzaka@todo.todo>")
+set(doubleRecord_DEPRECATED "")
+set(doubleRecord_VERSION "0.0.0")
+set(doubleRecord_BUILD_DEPENDS "cv_bridge" "geometry_msgs" "image_transport" "roscpp" "rospy" "sensor_msgs" "std_msgs" "visualization_msgs")
+set(doubleRecord_RUN_DEPENDS "cv_bridge" "geometry_msgs" "image_transport" "roscpp" "rospy" "sensor_msgs" "std_msgs" "visualization_msgs")
+set(doubleRecord_BUILDTOOL_DEPENDS "catkin")

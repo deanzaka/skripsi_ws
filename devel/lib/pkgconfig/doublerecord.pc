@@ -1,0 +1,8 @@
+prefix=/home/deanzaka/Github/skripsi_ws/devel
+
+Name: doublerecord
+Description: Description of doublerecord
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/deanzaka/Github/skripsi_ws/devel/lib 
+Requires: 

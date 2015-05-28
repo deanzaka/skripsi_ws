@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "offline")
+set(offline_MAINTAINER "deanzaka <deanzaka@todo.todo>")
+set(offline_DEPRECATED "")
+set(offline_VERSION "0.0.0")
+set(offline_BUILD_DEPENDS "cv_bridge" "geometry_msgs" "image_transport" "roscpp" "rospy" "sensor_msgs" "std_msgs" "visualization_msgs")
+set(offline_RUN_DEPENDS "cv_bridge" "geometry_msgs" "image_transport" "roscpp" "rospy" "sensor_msgs" "std_msgs" "visualization_msgs")
+set(offline_BUILDTOOL_DEPENDS "catkin")

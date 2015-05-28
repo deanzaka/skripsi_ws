@@ -1,2 +1,2 @@
-camshift:epipolar
+camshift:doublerecord:epipolar:offline
 -DCATKIN_DEVEL_PREFIX=/home/deanzaka/Github/skripsi_ws/devel -DCMAKE_INSTALL_PREFIX=/home/deanzaka/Github/skripsi_ws/install -G Unix Makefiles

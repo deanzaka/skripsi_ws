@@ -150,14 +150,14 @@ int main (int argc, char** argv)
     setIdentity(KF2.measurementNoiseCov, Scalar::all(1e-1));
     setIdentity(KF2.errorCovPost, Scalar::all(.1));
 
-    VideoCapture inputVideo1("/home/deanzaka/datatemp/video1.avi");              // Open input
+    VideoCapture inputVideo1("/home/deanzaka/datatemp/white_video1.avi");              // Open input
     if (!inputVideo1.isOpened())
     {
         cout  << "Could not open the input video 1" << endl;
         return -1;
     }
 
-    VideoCapture inputVideo2("/home/deanzaka/datatemp/video2.avi");              // Open input
+    VideoCapture inputVideo2("/home/deanzaka/datatemp/white_video2.avi");              // Open input
     if (!inputVideo2.isOpened())
     {
         cout  << "Could not open the input video 2" << endl;
@@ -245,8 +245,8 @@ int main (int argc, char** argv)
         merge(channel1, 3, image1);
 
         //morphological opening (removes small objects from the foreground)
-        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
-        dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
@@ -259,8 +259,8 @@ int main (int argc, char** argv)
         merge(channel2, 3, image2);
 
         //morphological opening (removes small objects from the foreground)
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
-        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );

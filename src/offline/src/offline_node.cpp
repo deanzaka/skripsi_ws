@@ -244,9 +244,9 @@ int main (int argc, char** argv)
         channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
         merge(channel1, 3, image1);
 
-        // //morphological opening (removes small objects from the foreground)
-        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
-        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
+        //morphological opening (removes small objects from the foreground)
+        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
@@ -258,9 +258,9 @@ int main (int argc, char** argv)
         channel2[0] = Mat::zeros(480, 640, CV_8UC1 );
         merge(channel2, 3, image2);
 
-        // //morphological opening (removes small objects from the foreground)
-        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
-        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
+        //morphological opening (removes small objects from the foreground)
+        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );

@@ -14,7 +14,7 @@ int main (int argc, char** argv)
 	ros::init (argc, argv, "camshift");
 	ros::NodeHandle nh;  
 	
-	int fps = 25;
+	float fps = 25;
 	
 	VideoCapture cap1(1); 
 	if(!cap1.isOpened()){

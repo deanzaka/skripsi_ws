@@ -162,8 +162,8 @@ int main (int argc, char** argv)
     int posZ;
     double posX1, posX2, posY1, posY2;
 
-    cap1.open(1);
-    cap2.open(2);
+    cap1.open(2);
+    cap2.open(1);
 
 
     if( !cap1.isOpened() )
@@ -232,15 +232,15 @@ int main (int argc, char** argv)
         frame1.copyTo(imageOriginal1);
         frame2.copyTo(imageOriginal2);
 
-        // pMOG1->operator()(image1, fgMaskMOG1);
-        // fgMaskMOG1.copyTo(channel1[0]);
-        // channel1[1] = Mat::zeros(480, 640, CV_8UC1 );
-        // channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
-        // merge(channel1, 3, image1);
+        pMOG1->operator()(image1, fgMaskMOG1);
+        fgMaskMOG1.copyTo(channel1[0]);
+        channel1[1] = Mat::zeros(480, 640, CV_8UC1 );
+        channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
+        merge(channel1, 3, image1);
 
-        // //morphological opening (removes small objects from the foreground)
-        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
-        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+        //morphological opening (removes small objects from the foreground)
+        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
@@ -253,12 +253,12 @@ int main (int argc, char** argv)
         merge(channel2, 3, image2);
 
         //morphological opening (removes small objects from the foreground)
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
-        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
-        //morphological closing (removes small holes from the foreground)
-        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+        // //morphological closing (removes small holes from the foreground)
+        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
 
         if( !paused )
         {
@@ -462,14 +462,14 @@ int main (int argc, char** argv)
 
             cout << "\nObject position: \t";
             
-            cout << posX << "\t";
+            cout << 600 - posX << "\t";
             cout << posY << "\t";
 
         //==================== distance estimation ========================================================================//
 
         //==================== HEIGHT ESTIMATION ========================================================================//
             
-            double stand = 120.0;
+            double stand = 102.0;
             double posR, angleZ, tanZ;
 
             posR = sqrt(posX*posX + posY*posY);

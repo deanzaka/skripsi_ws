@@ -12,8 +12,15 @@
 
 #include <iostream>
 #include <ctype.h>
+#include <sstream>
+#include <vector>
+#include <math.h>
+#include <fstream>
+
+#include "std_msgs/String.h"
 
 #define _USE_MATH_DEFINES
+#define PI 3.14159265
 
 using namespace cv;
 using namespace std;
@@ -57,6 +64,39 @@ static void help()
             "\tp - pause video\n"
             "To initialize tracking, select the object with mouse\n";
 }
+
+void csv_init(const std::string& filepath) {
+    using namespace std;
+    using namespace boost;
+
+    ofstream csv;
+    csv.open(filepath.c_str(),ios::app);
+    if ( csv.is_open() ) csv << ","; 
+    else {
+        assert(false && "csv.open(filepath.c_str()): FALSE");
+    }
+    csv.close();
+}
+
+// void csv_write(const geometry_msgs::PoseStamped& pose,
+//         const std::string& filepath) {
+//     using namespace std;
+//     using namespace boost;
+
+//     ofstream csv;
+//     csv.open(filepath.c_str(),ios::app);
+//     if ( csv.is_open() ) {
+//         // csv << lexical_cast<string>(pose.header.stamp.toSec()); csv << ",";
+//         // csv << lexical_cast<string>(pose.pose.position.x); csv << ",";
+//         // csv << lexical_cast<string>(pose.pose.position.y); csv << ",";
+//         // csv << lexical_cast<string>(pose.pose.position.z); csv << ",";
+//     }
+//     else {
+//         assert(false && "csv.open(filepath.c_str()): FALSE");
+//     }
+
+//     csv.close();
+// }
 
 static void onMouse1( int event, int x, int y, int, void* )
 {
@@ -150,14 +190,14 @@ int main (int argc, char** argv)
     setIdentity(KF2.measurementNoiseCov, Scalar::all(1e-1));
     setIdentity(KF2.errorCovPost, Scalar::all(.1));
 
-    VideoCapture inputVideo1("/home/deanzaka/datatemp/white_video1.avi");              // Open input
+    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_nonet_1.avi");              // Open input
     if (!inputVideo1.isOpened())
     {
         cout  << "Could not open the input video 1" << endl;
         return -1;
     }
 
-    VideoCapture inputVideo2("/home/deanzaka/datatemp/white_video2.avi");              // Open input
+    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_nonet_2.avi");              // Open input
     if (!inputVideo2.isOpened())
     {
         cout  << "Could not open the input video 2" << endl;
@@ -175,6 +215,9 @@ int main (int argc, char** argv)
                   (int) inputVideo1.get(CV_CAP_PROP_FRAME_HEIGHT));
     Size S2 = Size((int) inputVideo2.get(CV_CAP_PROP_FRAME_WIDTH),    // Acquire input size
                   (int) inputVideo2.get(CV_CAP_PROP_FRAME_HEIGHT));
+
+    int posZ;
+    double posX1, posX2, posY1, posY2;
 
     Rect trackWindow1;
     Rect trackWindow2;
@@ -245,8 +288,8 @@ int main (int argc, char** argv)
         merge(channel1, 3, image1);
 
         //morphological opening (removes small objects from the foreground)
-        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
-        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
@@ -259,8 +302,8 @@ int main (int argc, char** argv)
         merge(channel2, 3, image2);
 
         //morphological opening (removes small objects from the foreground)
-        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
-        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)) );
@@ -453,6 +496,59 @@ int main (int argc, char** argv)
         }
         //  else if( trackObject1 < 0 && trackObject2 < 0 )
         //  paused = false;
+
+          //==================== DISTANCE ESTIMATION ========================================================================//
+
+        if( trackObject1 > 0 && trackObject2 > 0) {
+           
+            double dist = 600;
+
+            // convert pixel position to angle
+            double angleX1 = 90 - ((posX1*64) / 640);
+            double angleX2 = (((posX2*64) / 640) + 26);
+
+            // calculate tangensial value for angles
+            double tan1 = tan( angleX1 * PI / 180.0 );
+            double tan2 = tan( angleX2 * PI / 180.0 );
+
+            // calculate object position
+            int posX, posY;
+            posX = (tan1 * dist) / (tan1 + tan2);
+            posY = (tan2 * posX);
+
+            cout << "\nObject position: \t";
+            
+            cout << 600 - posX << "\t";
+            cout << posY << "\t";
+
+        //==================== distance estimation ========================================================================//
+
+        //==================== HEIGHT ESTIMATION ========================================================================//
+            
+            double stand = 102.0;
+            double posR, angleZ, tanZ;
+
+            posR = sqrt(posX*posX + posY*posY);
+
+            if(posY2 > 240) {
+                angleZ = ((posY2*48) / 480) - 24;
+                tanZ = tan(angleZ * PI / 180.0);
+
+                posZ = posR * tanZ;
+                posZ = stand - posZ;
+            }
+            else if (posY2 < 240){
+                angleZ = 24 - ((posY2*48)/480);
+                tanZ = tan(angleZ * PI / 180.0);
+
+                posZ = posR * tanZ;
+                posZ = stand + posZ;
+            }
+            else posZ = stand;
+            cout << posZ << "\n\n";
+        }
+        //==================== height estimation ========================================================================//
+
 
         if( selectObject1 && selection1.width > 0 && selection1.height > 0 )
         {

@@ -64,6 +64,7 @@ offline/CMakeFiles/offline_node.dir/src/offline_node.cpp.o: /opt/ros/indigo/incl
 offline/CMakeFiles/offline_node.dir/src/offline_node.cpp.o: /opt/ros/indigo/include/rosconsole/macros_generated.h
 offline/CMakeFiles/offline_node.dir/src/offline_node.cpp.o: /opt/ros/indigo/include/std_msgs/ColorRGBA.h
 offline/CMakeFiles/offline_node.dir/src/offline_node.cpp.o: /opt/ros/indigo/include/std_msgs/Header.h
+offline/CMakeFiles/offline_node.dir/src/offline_node.cpp.o: /opt/ros/indigo/include/std_msgs/String.h
 offline/CMakeFiles/offline_node.dir/src/offline_node.cpp.o: /opt/ros/indigo/include/visualization_msgs/Marker.h
 offline/CMakeFiles/offline_node.dir/src/offline_node.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 offline/CMakeFiles/offline_node.dir/src/offline_node.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp

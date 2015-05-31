@@ -27,6 +27,16 @@ iostream
 -
 ctype.h
 -
+sstream
+-
+vector
+-
+math.h
+-
+fstream
+-
+std_msgs/String.h
+/home/deanzaka/Github/skripsi_ws/src/offline/src/std_msgs/String.h
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
@@ -753,6 +763,22 @@ ros/message_operations.h
 -
 
 /opt/ros/indigo/include/std_msgs/Header.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/opt/ros/indigo/include/std_msgs/String.h
 string
 -
 vector

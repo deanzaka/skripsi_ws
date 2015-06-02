@@ -31,7 +31,7 @@ float xCam1, yCam1, xCam2, yCam2;
 float timestamp = 0;
 
 visualization_msgs::Marker marker, lines, points;
-geometry_msgs::Pose pose, trans_pose;
+geometry_msgs::Pose pose, trans_pose, velocity;
 geometry_msgs::Point last, p;
 ros::Publisher marker_pub;
 
@@ -87,7 +87,9 @@ void csv_init(const std::string& filepath) {
 }
 
 void csv_write(const geometry_msgs::Pose& pose,
-        const std::string& filepath, const float timestamp) {
+        const geometry_msgs::Pose& velocity,
+        const std::string& filepath, 
+        const float timestamp) {
     using namespace std;
     using namespace boost;
 
@@ -97,7 +99,10 @@ void csv_write(const geometry_msgs::Pose& pose,
         csv << lexical_cast<string>(timestamp); csv << ",";
         csv << lexical_cast<string>(pose.position.x); csv << ",";
         csv << lexical_cast<string>(pose.position.y); csv << ",";
-        csv << lexical_cast<string>(pose.position.z); csv << "\n";
+        csv << lexical_cast<string>(pose.position.z); csv << ",";
+        csv << lexical_cast<string>(velocity.position.x); csv << ",";
+        csv << lexical_cast<string>(velocity.position.y); csv << ",";
+        csv << lexical_cast<string>(velocity.position.z); csv << "\n";
     }
     else {
         assert(false && "csv.open(filepath.c_str()): FALSE");
@@ -622,7 +627,7 @@ int main (int argc, char** argv)
             double tan2 = tan( angleX2 * PI / 180.0 );
 
             // calculate object position
-            int posX, posY;
+            int posX, posY, lastPosX, lastPosY, lastPosZ;
             posX = (tan1 * dist) / (tan1 + tan2);
             posY = (tan2 * posX);
 
@@ -663,9 +668,22 @@ int main (int argc, char** argv)
             pose.position.y = posY;
             pose.position.z = posZ;
 
-            transformer(pose);
-            csv_write(pose, csv_filepath, timestamp);
+            velocity.position.x = (float) (posX - lastPosX) / 4;
+            velocity.position.y = (float) (posY - lastPosY) / 4;
+            velocity.position.z = (float) (posZ - lastPosZ) / 4;
 
+            cout << "\nObject velocity: \t";
+            
+            cout << velocity.position.x << "\t";
+            cout << velocity.position.y << "\t";
+            cout << velocity.position.z << "\n";
+
+            transformer(pose);
+            csv_write(pose, velocity, csv_filepath, timestamp);
+
+            lastPosX = posX;
+            lastPosY = posY;
+            lastPosZ = posZ;
         }
         //==================== height estimation ========================================================================//
 

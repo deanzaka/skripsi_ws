@@ -288,14 +288,14 @@ int main (int argc, char** argv)
     setIdentity(KF2.measurementNoiseCov, Scalar::all(1e-1));
     setIdentity(KF2.errorCovPost, Scalar::all(.1));
 
-    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_net_1/red_net_1-cut-20.avi");              // Open input
+    VideoCapture inputVideo1("/home/deanzaka/datatemp/white_net_1/white_net_1-cut-20.avi");              // Open input
     if (!inputVideo1.isOpened())
     {
         cout  << "Could not open the input video 1" << endl;
         return -1;
     }
 
-    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_net_2/red_net_2-cut-20.avi");              // Open input
+    VideoCapture inputVideo2("/home/deanzaka/datatemp/white_net_2/white_net_2-cut-20.avi");              // Open input
     if (!inputVideo2.isOpened())
     {
         cout  << "Could not open the input video 2" << endl;

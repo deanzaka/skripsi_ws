@@ -111,7 +111,8 @@ void marker_init() {
     uint32_t line_strip = visualization_msgs::Marker::LINE_STRIP;
     uint32_t points_mark =  visualization_msgs::Marker::POINTS;
 
-    points.header.frame_id = lines.header.frame_id = marker.header.frame_id = "world";
+    points.header.frame_id = lines.header.frame_id = marker.header.frame_id = "/map";
+    points.header.stamp = lines.header.stamp = marker.header.stamp = ros::Time::now();
     marker.type = shape;
     lines.type = line_strip;
     points.type = points_mark;
@@ -144,16 +145,16 @@ void marker_init() {
     lines.color.b = 0.0f;
     lines.color.a = 1.0;
 
-    marker.lifetime = ros::Duration(1);
+    marker.lifetime = ros::Duration();
 }
 
 void transformer (const geometry_msgs::Pose& sPose)
 {
 
     float r, th;
-    float x_temp = sPose.position.x;
-    float y_temp = sPose.position.y;
-    float z_temp = sPose.position.z;
+    float x_temp = (float) sPose.position.x / 100;
+    float y_temp = (float) sPose.position.y / 100;
+    float z_temp = (float) sPose.position.z / 100;
 
     trans_pose.position.x = y_temp;
     trans_pose.position.y = -(x_temp);
@@ -164,6 +165,11 @@ void transformer (const geometry_msgs::Pose& sPose)
     p.x = trans_pose.position.x; // backward - forward
     p.y = trans_pose.position.y; // right - left
     p.z = trans_pose.position.z; // down - up
+
+    // debug
+    cout << "\n\n" << p.x << "\t";
+    cout << p.y << "\t";
+    cout << p.z << "\n\n";
 
     // lines.lifetime = ros::Duration(5);
     // points.lifetime = ros::Duration(5);
@@ -275,14 +281,14 @@ int main (int argc, char** argv)
     setIdentity(KF2.measurementNoiseCov, Scalar::all(1e-1));
     setIdentity(KF2.errorCovPost, Scalar::all(.1));
 
-    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_net_1/red_net_1-cut-01.avi");              // Open input
+    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_net_1/red_net_1-cut-02.avi");              // Open input
     if (!inputVideo1.isOpened())
     {
         cout  << "Could not open the input video 1" << endl;
         return -1;
     }
 
-    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_net_2/red_net_2-cut-01.avi");              // Open input
+    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_net_2/red_net_2-cut-02.avi");              // Open input
     if (!inputVideo2.isOpened())
     {
         cout  << "Could not open the input video 2" << endl;

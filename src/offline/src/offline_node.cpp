@@ -159,8 +159,8 @@ int main (int argc, char** argv)
     // Initialize ROS
     ros::init (argc, argv, "camshift_offline");
     ros::NodeHandle nh;
-     std::string csv_filepath = "/home/deanzaka/datatemp/red_net.csv";  
-
+    string csv_filepath = "/home/deanzaka/datatemp/red_net.csv";  
+    float timestamp = 0;
     help();
 
     KalmanFilter KF1(4, 2, 0);
@@ -278,6 +278,7 @@ int main (int argc, char** argv)
             if( frame2.empty() )
                 break;
         }
+        if( !paused ) timestamp = timestamp + 0.04; //adding 40 ms for 25 fps
 
         frame1.copyTo(image1);
         frame2.copyTo(image2);
@@ -398,6 +399,15 @@ int main (int argc, char** argv)
                     Point statePt1(estimated1.at<float>(0),estimated1.at<float>(1));
                 }
 
+                if(trackBox1.center.x != 0 || trackBox1.center.y != 0) {
+                    posX1 = trackBox1.center.x;
+                    posY1 = trackBox1.center.y;
+                }
+                else {
+                    posX1 = predictPt1.x;
+                    posY1 = predictPt1.y;
+                }
+
                 prediction1 = KF1.predict();
                 Point predictPt1(prediction1.at<float>(0),prediction1.at<float>(1));
                 cout << "\nCam 1 Predicted Position: \t";
@@ -494,6 +504,15 @@ int main (int argc, char** argv)
                 cout << predictPt2.x << "\t" << predictPt2.y << "\n";
                 circle(image2 , Point(  predictPt2.x,predictPt2.y), 16.0, Scalar( 0, 155, 255), 3, 8 );
 
+                if(trackBox2.center.x != 0 || trackBox2.center.y != 0) {
+                    posX2 = trackBox2.center.x;
+                    posY2 = trackBox2.center.y;
+                }
+                else {
+                    posX2 = predictPt2.x;
+                    posY2 = predictPt2.y;
+                }
+
             }
 
         }
@@ -519,11 +538,6 @@ int main (int argc, char** argv)
             posX = (tan1 * dist) / (tan1 + tan2);
             posY = (tan2 * posX);
 
-            cout << "\nObject position: \t";
-            
-            cout << 600 - posX << "\t";
-            cout << posY << "\t";
-
         //==================== distance estimation ========================================================================//
 
         //==================== HEIGHT ESTIMATION ========================================================================//
@@ -548,7 +562,14 @@ int main (int argc, char** argv)
                 posZ = stand + posZ;
             }
             else posZ = stand;
-            cout << posZ << "\n\n";
+
+            cout << "\nObject position: \t";
+            
+            cout << 600 - posX << "\t";
+            cout << posY << "\t";
+            cout << posZ << "\n";
+            cout << "Timestamp: \t";
+            cout << timestamp << "\n\n";
         }
         //==================== height estimation ========================================================================//
 
@@ -616,7 +637,7 @@ int main (int argc, char** argv)
             delay = ros::Time::now().toSec() - start.toSec();
         }
         
-        cout << "\n\n Delay = \t" << delay << "\n\n";
+        // cout << "\n\n Delay = \t" << delay << "\n\n";
 
         ros::spinOnce();
     }

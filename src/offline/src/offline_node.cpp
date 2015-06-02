@@ -172,6 +172,10 @@ void transformer (const geometry_msgs::Pose& sPose)
     points.pose.orientation.w = 1.0;
     lines.points.push_back(p);
     points.points.push_back(p);
+
+    marker_pub.publish(marker);
+    marker_pub.publish(lines);
+    marker_pub.publish(points);
 }
 
 static void onMouse1( int event, int x, int y, int, void* )
@@ -440,7 +444,7 @@ int main (int argc, char** argv)
                     trackBox1 = CamShift(backproj1, trackWindow1,
                         TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 }
-                else if(0 < predictPt1.y < 480){
+                else if(posZ > 0){
                     Rect preWindow1(predictPt1.x, predictPt1.y, 10, 10); 
                     trackBox1 = CamShift(backproj1, preWindow1,
                                         TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
@@ -538,7 +542,7 @@ int main (int argc, char** argv)
                     trackBox2 = CamShift(backproj2, trackWindow2,
                         TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
                 }
-                else if (0 < predictPt2.y < 480) {
+                else if (posZ > 0) {
                     Rect preWindow2(predictPt2.x, predictPt2.y, 10, 10); 
                     trackBox2 = CamShift(backproj2, preWindow2,
                                         TermCriteria( CV_TERMCRIT_EPS | CV_TERMCRIT_ITER, 10, 1 ));
@@ -654,9 +658,6 @@ int main (int argc, char** argv)
             pose.position.z = posZ;
 
             transformer(pose);
-            marker_pub.publish(marker);
-            marker_pub.publish(lines);
-            marker_pub.publish(points);
 
 
         }

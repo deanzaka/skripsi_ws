@@ -9,6 +9,7 @@
 
   <group if="$(arg rviz_true)">
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find offline)/cfg/setting.rviz" output="screen"/>
+    <node pkg="tf" type="static_transform_publisher" name="world_map_tf_bc" args="0 0 0 0 0 0 /world /map 100" />
   </group>
 
 

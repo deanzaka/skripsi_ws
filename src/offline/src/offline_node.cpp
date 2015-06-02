@@ -29,6 +29,8 @@ using namespace std;
 Mat image1, image2, imageOriginal1, imageOriginal2;
 float xCam1, yCam1, xCam2, yCam2;
 float timestamp = 0;
+int detected = 0;
+int predicted = 0;
 
 visualization_msgs::Marker marker, lines, points;
 geometry_msgs::Pose pose, trans_pose, velocity;
@@ -172,10 +174,10 @@ void transformer (const geometry_msgs::Pose& sPose)
     p.y = trans_pose.position.y; // right - left
     p.z = trans_pose.position.z; // down - up
 
-    // debug
-    cout << "\n\n" << p.x << "\t";
-    cout << p.y << "\t";
-    cout << p.z << "\n\n";
+    // // debug
+    // cout << "\n\n" << p.x << "\t";
+    // cout << p.y << "\t";
+    // cout << p.z << "\n\n";
 
     // lines.lifetime = ros::Duration(5);
     // points.lifetime = ros::Duration(5);
@@ -286,14 +288,14 @@ int main (int argc, char** argv)
     setIdentity(KF2.measurementNoiseCov, Scalar::all(1e-1));
     setIdentity(KF2.errorCovPost, Scalar::all(.1));
 
-    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_net_1/red_net_1-cut-03.avi");              // Open input
+    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_net_1/red_net_1-cut-21.avi");              // Open input
     if (!inputVideo1.isOpened())
     {
         cout  << "Could not open the input video 1" << endl;
         return -1;
     }
 
-    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_net_2/red_net_2-cut-03.avi");              // Open input
+    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_net_2/red_net_2-cut-21.avi");              // Open input
     if (!inputVideo2.isOpened())
     {
         cout  << "Could not open the input video 2" << endl;
@@ -600,10 +602,12 @@ int main (int argc, char** argv)
                 if(trackBox2.center.x != 0 || trackBox2.center.y != 0) {
                     posX2 = trackBox2.center.x;
                     posY2 = trackBox2.center.y;
+                    detected++;
                 }
                 else {
                     posX2 = predictPt2.x;
                     posY2 = predictPt2.y;
+                    predicted++;
                 }
 
             }
@@ -672,11 +676,14 @@ int main (int argc, char** argv)
             velocity.position.y = (float) (posY - lastPosY) / 4;
             velocity.position.z = (float) (posZ - lastPosZ) / 4;
 
-            cout << "\nObject velocity: \t";
+            cout << "Object velocity: \t";
             
             cout << velocity.position.x << "\t";
             cout << velocity.position.y << "\t";
             cout << velocity.position.z << "\n";
+
+            cout << "Detected: " << detected << "\t";
+            cout << "Predicted: " << predicted << "\n";
 
             transformer(pose);
             csv_write(pose, velocity, csv_filepath, timestamp);
@@ -725,6 +732,8 @@ int main (int argc, char** argv)
                 histimg1 = Scalar::all(0);
                 trackObject2 = 0;
                 histimg2 = Scalar::all(0);
+                detected = 0;
+                predicted = 0;
                 break;
             case 'h':
                 showHist = !showHist;

@@ -1,0 +1,15 @@
+<launch>  
+  
+  <arg name="rviz_true" default="True" />
+  <arg name="pose" default="True"/>
+
+  <group if="$(arg pose)">
+    <node pkg="offline" name="offline_node" type="offline_node" output="screen"/>
+  </group>
+
+  <group if="$(arg rviz_true)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find offline)/cfg/setting.rviz" output="screen"/>
+  </group>
+
+
+</launch>

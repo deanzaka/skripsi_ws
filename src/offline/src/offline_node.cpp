@@ -2,6 +2,7 @@
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <visualization_msgs/Marker.h>
+#include <geometry_msgs/Pose.h>
 
 #include "opencv2/video/tracking.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
@@ -26,8 +27,12 @@ using namespace cv;
 using namespace std;
 
 Mat image1, image2, imageOriginal1, imageOriginal2;
-visualization_msgs::Marker marker, lines, points;
 float xCam1, yCam1, xCam2, yCam2;
+
+visualization_msgs::Marker marker, lines, points;
+geometry_msgs::Pose pose, trans_pose;
+geometry_msgs::Point last, p;
+ros::Publisher marker_pub;
 
 bool step = true;
 bool showHist = true;
@@ -141,6 +146,33 @@ void marker_init() {
     lines.color.a = 1.0;
 
     marker.lifetime = ros::Duration(1);
+}
+
+void transformer (const geometry_msgs::Pose& sPose)
+{
+
+    float r, th;
+    float x_temp = sPose.position.x;
+    float y_temp = sPose.position.y;
+    float z_temp = sPose.position.z;
+
+    trans_pose.position.x = y_temp;
+    trans_pose.position.y = -(x_temp);
+    trans_pose.position.z = z_temp;
+
+    marker.pose = trans_pose;
+
+    p.x = trans_pose.position.x; // backward - forward
+    p.y = trans_pose.position.y; // right - left
+    p.z = trans_pose.position.z; // down - up
+
+    // lines.lifetime = ros::Duration(5);
+    // points.lifetime = ros::Duration(5);
+
+    lines.pose.orientation.w = 1.0;
+    points.pose.orientation.w = 1.0;
+    lines.points.push_back(p);
+    points.points.push_back(p);
 }
 
 static void onMouse1( int event, int x, int y, int, void* )
@@ -615,6 +647,12 @@ int main (int argc, char** argv)
             cout << posZ << "\n";
             cout << "Timestamp: \t";
             cout << timestamp << "\n\n";
+
+            pose.position.x = posX;
+            pose.position.y = posY;
+            pose.position.z = posZ;
+
+
         }
         //==================== height estimation ========================================================================//
 

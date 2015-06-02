@@ -13,6 +13,8 @@ ros/console.h
 -
 visualization_msgs/Marker.h
 -
+geometry_msgs/Pose.h
+-
 opencv2/video/tracking.hpp
 /home/deanzaka/Github/skripsi_ws/src/offline/src/opencv2/video/tracking.hpp
 opencv2/imgproc/imgproc.hpp

@@ -291,7 +291,7 @@ int main (int argc, char** argv)
         merge(channel1, 3, image1);
 
         //morphological opening (removes small objects from the foreground)
-        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(4, 4)) );
+        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
         dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
@@ -305,7 +305,7 @@ int main (int argc, char** argv)
         merge(channel2, 3, image2);
 
         //morphological opening (removes small objects from the foreground)
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(4, 4)) );
+        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
         dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
@@ -602,6 +602,8 @@ int main (int argc, char** argv)
                 break;
             case 'p':
                 paused = !paused;
+                if(paused) step = false;
+                else step = true;
                 break;
             case 's':
                 step = !step;

@@ -112,7 +112,6 @@ void marker_init() {
     uint32_t points_mark =  visualization_msgs::Marker::POINTS;
 
     points.header.frame_id = lines.header.frame_id = marker.header.frame_id = "world";
-    points.header.stamp = lines.header.stamp = marker.header.stamp = ros::Time::now();
     marker.type = shape;
     lines.type = line_strip;
     points.type = points_mark;
@@ -239,6 +238,8 @@ int main (int argc, char** argv)
     string csv_filepath = "/home/deanzaka/datatemp/red_net.csv";  
     float timestamp = 0;
     help();
+
+    marker_pub = nh.advertise<visualization_msgs::Marker>("visualization_marker", 1);
 
     KalmanFilter KF1(4, 2, 0);
 
@@ -651,6 +652,11 @@ int main (int argc, char** argv)
             pose.position.x = posX;
             pose.position.y = posY;
             pose.position.z = posZ;
+
+            transformer(pose);
+            marker_pub.publish(marker);
+            marker_pub.publish(lines);
+            marker_pub.publish(points);
 
 
         }

@@ -28,6 +28,7 @@ using namespace std;
 
 Mat image1, image2, imageOriginal1, imageOriginal2;
 float xCam1, yCam1, xCam2, yCam2;
+float timestamp = 0;
 
 visualization_msgs::Marker marker, lines, points;
 geometry_msgs::Pose pose, trans_pose;
@@ -85,25 +86,25 @@ void csv_init(const std::string& filepath) {
     csv.close();
 }
 
-// void csv_write(const geometry_msgs::PoseStamped& pose,
-//         const std::string& filepath) {
-//     using namespace std;
-//     using namespace boost;
+void csv_write(const geometry_msgs::Pose& pose,
+        const std::string& filepath, const float timestamp) {
+    using namespace std;
+    using namespace boost;
 
-//     ofstream csv;
-//     csv.open(filepath.c_str(),ios::app);
-//     if ( csv.is_open() ) {
-//         // csv << lexical_cast<string>(pose.header.stamp.toSec()); csv << ",";
-//         // csv << lexical_cast<string>(pose.pose.position.x); csv << ",";
-//         // csv << lexical_cast<string>(pose.pose.position.y); csv << ",";
-//         // csv << lexical_cast<string>(pose.pose.position.z); csv << ",";
-//     }
-//     else {
-//         assert(false && "csv.open(filepath.c_str()): FALSE");
-//     }
+    ofstream csv;
+    csv.open(filepath.c_str(),ios::app);
+    if ( csv.is_open() ) {
+        csv << lexical_cast<string>(timestamp); csv << ",";
+        csv << lexical_cast<string>(pose.position.x); csv << ",";
+        csv << lexical_cast<string>(pose.position.y); csv << ",";
+        csv << lexical_cast<string>(pose.position.z); csv << "\n";
+    }
+    else {
+        assert(false && "csv.open(filepath.c_str()): FALSE");
+    }
 
-//     csv.close();
-// }
+    csv.close();
+}
 
 void marker_init() {
  // Set our initial shape type to be a cube
@@ -246,7 +247,6 @@ int main (int argc, char** argv)
     marker_init();
 
     string csv_filepath = "/home/deanzaka/datatemp/red_net.csv";  
-    float timestamp = 0;
     help();
 
     marker_pub = nh.advertise<visualization_msgs::Marker>("visualization_marker", 1);
@@ -281,14 +281,14 @@ int main (int argc, char** argv)
     setIdentity(KF2.measurementNoiseCov, Scalar::all(1e-1));
     setIdentity(KF2.errorCovPost, Scalar::all(.1));
 
-    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_net_1/red_net_1-cut-02.avi");              // Open input
+    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_net_1/red_net_1-cut-03.avi");              // Open input
     if (!inputVideo1.isOpened())
     {
         cout  << "Could not open the input video 1" << endl;
         return -1;
     }
 
-    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_net_2/red_net_2-cut-02.avi");              // Open input
+    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_net_2/red_net_2-cut-03.avi");              // Open input
     if (!inputVideo2.isOpened())
     {
         cout  << "Could not open the input video 2" << endl;
@@ -609,7 +609,7 @@ int main (int argc, char** argv)
 
           //==================== DISTANCE ESTIMATION ========================================================================//
 
-        if( trackObject1 > 0 && trackObject2 > 0) {
+        if( trackObject1 > 0 && trackObject2 > 0 && !paused) {
            
             double dist = 600;
 
@@ -656,19 +656,21 @@ int main (int argc, char** argv)
             cout << 600 - posX << "\t";
             cout << posY << "\t";
             cout << posZ << "\n";
-            cout << "Timestamp: \t";
-            cout << timestamp << "\n\n";
+            // cout << "Timestamp: \t";
+            // cout << timestamp << "\n\n";
 
             pose.position.x = posX;
             pose.position.y = posY;
             pose.position.z = posZ;
 
             transformer(pose);
-
+            csv_write(pose, csv_filepath, timestamp);
 
         }
         //==================== height estimation ========================================================================//
 
+        cout << "Timestamp: \t";
+        cout << timestamp << "\n\n";
 
         if( selectObject1 && selection1.width > 0 && selection1.height > 0 )
         {

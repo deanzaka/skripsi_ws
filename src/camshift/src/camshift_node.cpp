@@ -232,29 +232,29 @@ int main (int argc, char** argv)
         frame1.copyTo(imageOriginal1);
         frame2.copyTo(imageOriginal2);
 
-        pMOG1->operator()(image1, fgMaskMOG1);
-        fgMaskMOG1.copyTo(channel1[0]);
-        channel1[1] = Mat::zeros(480, 640, CV_8UC1 );
-        channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
-        merge(channel1, 3, image1);
+        // pMOG1->operator()(image1, fgMaskMOG1);
+        // fgMaskMOG1.copyTo(channel1[0]);
+        // channel1[1] = Mat::zeros(480, 640, CV_8UC1 );
+        // channel1[2] = Mat::zeros(480, 640, CV_8UC1 );
+        // merge(channel1, 3, image1);
 
-        //morphological opening (removes small objects from the foreground)
-        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
-        dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // //morphological opening (removes small objects from the foreground)
+        // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
         // erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
 
-        pMOG2->operator()(image2, fgMaskMOG2);
-        fgMaskMOG2.copyTo(channel2[2]);
-        channel2[1] = Mat::zeros(480, 640, CV_8UC1 );
-        channel2[0] = Mat::zeros(480, 640, CV_8UC1 );
-        merge(channel2, 3, image2);
+        // pMOG2->operator()(image2, fgMaskMOG2);
+        // fgMaskMOG2.copyTo(channel2[2]);
+        // channel2[1] = Mat::zeros(480, 640, CV_8UC1 );
+        // channel2[0] = Mat::zeros(480, 640, CV_8UC1 );
+        // merge(channel2, 3, image2);
 
-        //morphological opening (removes small objects from the foreground)
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
-        dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
+        // //morphological opening (removes small objects from the foreground)
+        // erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
         // dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );

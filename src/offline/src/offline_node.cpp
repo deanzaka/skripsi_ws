@@ -27,6 +27,7 @@ using namespace std;
 
 Mat image1, image2, imageOriginal1, imageOriginal2;
 
+bool step = true;
 bool showHist = true;
 bool backprojMode = false;
 
@@ -58,7 +59,8 @@ static void help()
 {
     	
             "\tESC - quit the program\n"
-            "\tc - stop the tracking\n"
+            "\tc - clear tracking\n"
+            "\ts - switch to/from step mode\n"
             "\tb - switch to/from backprojection view\n"
             "\th - show/hide object histogram\n"
             "\tp - pause video\n"
@@ -155,8 +157,9 @@ static void onMouse2( int event, int x, int y, int, void* )
 int main (int argc, char** argv)
 {
     // Initialize ROS
-    ros::init (argc, argv, "camshift");
-    ros::NodeHandle nh;  
+    ros::init (argc, argv, "camshift_offline");
+    ros::NodeHandle nh;
+     std::string csv_filepath = "/home/deanzaka/datatemp/red_net.csv";  
 
     help();
 
@@ -190,14 +193,14 @@ int main (int argc, char** argv)
     setIdentity(KF2.measurementNoiseCov, Scalar::all(1e-1));
     setIdentity(KF2.errorCovPost, Scalar::all(.1));
 
-    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_nonet_1.avi");              // Open input
+    VideoCapture inputVideo1("/home/deanzaka/datatemp/red_net_1/red_net_1-cut-01.avi");              // Open input
     if (!inputVideo1.isOpened())
     {
         cout  << "Could not open the input video 1" << endl;
         return -1;
     }
 
-    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_nonet_2.avi");              // Open input
+    VideoCapture inputVideo2("/home/deanzaka/datatemp/red_net_2/red_net_2-cut-01.avi");              // Open input
     if (!inputVideo2.isOpened())
     {
         cout  << "Could not open the input video 2" << endl;
@@ -288,7 +291,7 @@ int main (int argc, char** argv)
         merge(channel1, 3, image1);
 
         //morphological opening (removes small objects from the foreground)
-        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        erode(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(4, 4)) );
         dilate(image1, image1, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
@@ -302,7 +305,7 @@ int main (int argc, char** argv)
         merge(channel2, 3, image2);
 
         //morphological opening (removes small objects from the foreground)
-        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(6, 6)) );
+        erode(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(4, 4)) );
         dilate(image2, image2, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)) );
 
         // //morphological closing (removes small holes from the foreground)
@@ -569,8 +572,9 @@ int main (int argc, char** argv)
         imshow( "Histogram 1", histimg1 );
         imshow( "Histogram 2", histimg2 );
 
-        
-        char c = (char)waitKey(1);
+        char c;
+        if(step) c = (char)waitKey();
+        else c = (char)waitKey(1);
         
         if( c == 27 )
                 break;
@@ -599,6 +603,8 @@ int main (int argc, char** argv)
             case 'p':
                 paused = !paused;
                 break;
+            case 's':
+                step = !step;
             default:
             ;
         }
